@@ -15,11 +15,7 @@ app.use(express.json());
 
 // DB connection
 connectDB();
-app.use(cors({
-  origin: 'http://localhost:3000', // frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true, // if you need cookies/auth headers
-}));
+app.use(cors()); 
 
 // Routes
 app.use("/api/signup/freelancers", freelancerRoutes);
