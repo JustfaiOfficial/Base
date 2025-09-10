@@ -21,7 +21,6 @@ async function usersignup(req, res) {
       hourlyRate,
     } = req.body;
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const freelancer = new Signup({
