@@ -1,16 +1,16 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const connectDB = require("./src/config/db.js");
 const freelancerRoutes = require("./src/Route/FreelancerRoutes.routes.js");
 
 dotenv.config();
 const app = express();
 
-// ✅ Allowed origins
+// Allowed origins
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://justfaitech.vercel.app"  // frontend on Vercel
+  "https://justfaitech.vercel.app"
 ];
 
 app.use(cors({
@@ -21,20 +21,16 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 }));
-
-// ✅ Handle preflight requests
-app.options("*", cors());
 
 // Middleware
 app.use(express.json());
 
-// ✅ Connect DB
+// DB connection
 connectDB();
 
-// ✅ Routes
+// Routes
 app.use("/api/signup/freelancers", freelancerRoutes);
 
 // Error handler
@@ -43,5 +39,5 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: err.message });
 });
 
-// ❌ No app.listen on Vercel
+// ❌ No app.listen() in Vercel serverless
 module.exports = app;
