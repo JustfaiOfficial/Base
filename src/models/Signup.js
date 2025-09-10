@@ -49,8 +49,7 @@ const Signupschema=new mongoose.Schema({
     required:true
   },
   Language:{
-    type:String,
-    required:true
+    type:String
   },
   Title:{
     type:String,
@@ -79,4 +78,4 @@ const Signupschema=new mongoose.Schema({
   },
 },{ timestamps: true });
 
-export default mongoose.model("Freelancer", Signupschema);
+module.exports =  mongoose.model("Freelancer", Signupschema);

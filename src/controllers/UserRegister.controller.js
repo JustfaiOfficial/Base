@@ -1,12 +1,24 @@
-import Signup from "../models/Signup.js";
-import bcrypt from "bcryptjs"; // for password hashing
+const bcrypt = require("bcryptjs");
+const Signup = require("../models/Signup.js");
 
-export async function usersignup(req, res) {
+async function usersignup(req, res) {
   try {
     const {
-      email, password, FullName, experienceYears, availability,
-      PhoneNumber, Username, Skills, AboutMe, Country, Language,
-      Title, portfolioFiles, resumeFile, hourlyRate
+      email,
+      password,
+      FullName,
+      experienceYears,
+      availability,
+      PhoneNumber,
+      Username,
+      Skills,
+      AboutMe,
+      Country,
+      Language,
+      Title,
+      portfolioFiles,
+      resumeFile,
+      hourlyRate,
     } = req.body;
 
     // Hash password
@@ -27,7 +39,7 @@ export async function usersignup(req, res) {
       Title,
       portfolioFiles,
       resumeFile,
-      hourlyRate
+      hourlyRate,
     });
 
     const savedFreelancer = await freelancer.save();
@@ -35,14 +47,22 @@ export async function usersignup(req, res) {
     res.status(201).json({
       success: true,
       message: "Freelancer registered successfully",
-      data: savedFreelancer
+      data: savedFreelancer,
     });
-
   } catch (err) {
     console.error(err);
     if (err.code === 11000) {
-      return res.status(400).json({ success: false, message: "Email, Phone, or Username already exists" });
+      return res.status(400).json({
+        success: false,
+        message: "Email, Phone, or Username already exists",
+      });
     }
-    res.status(500).json({ success: false, message: "Failed to save freelancer", error: err.message });
+    res.status(500).json({
+      success: false,
+      message: "Failed to save freelancer",
+      error: err.message,
+    });
   }
 }
+
+module.exports = { usersignup };
