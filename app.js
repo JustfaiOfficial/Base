@@ -15,7 +15,11 @@ app.use(express.json());
 
 // DB connection
 connectDB();
-app.use(cors()); 
+app.use(cors({
+  origin: "https://justfaitech.vercel.app",  // frontend URL on Vercel
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
 
 // Routes
 app.use("/api/signup/freelancers", freelancerRoutes);
