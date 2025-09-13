@@ -1,43 +1,107 @@
+// app.js
 const express = require("express");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const connectDB = require("./src/config/db.js");
-const freelancerRoutes = require("./src/Route/FreelancerRoutes.routes.js");
+const Signup = require("../Backend/src/models/Signup");
 
+
+// Load env variables
 dotenv.config();
+
 const app = express();
-
-// Allowed origins
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://justfaitech.vercel.app"
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-}));
 
 // Middleware
 app.use(express.json());
 
-// DB connection
-connectDB();
+// CORS setup
 
-// Routes
-app.use("/api/signup/freelancers", freelancerRoutes);
+app.use(cors()); 
 
-// Error handler
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ success: false, message: err.message });
+// Handle preflight requests
+
+// --- DB Connection ---
+const mongoURI = process.env.mongoURI_perment;
+
+mongoose
+  .connect(mongoURI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+    process.exit(1);
+  });
+
+
+
+// --- Signup Route ---
+app.post("/api/signup/freelancers/register", async (req, res) => {
+  try {
+    const {
+      email,
+      password,
+      FullName,
+      experienceYears,
+      availability,
+      PhoneNumber,
+      Username,
+      Skills,
+      AboutMe,
+      Country,
+      Language,
+      Title,
+      portfolioFiles,
+      resumeFile,
+      hourlyRate,
+    } = req.body;
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const freelancer = new Signup({
+      email,
+      password: hashedPassword,
+      FullName,
+      experienceYears,
+      availability,
+      PhoneNumber,
+      Username,
+      Skills,
+      AboutMe,
+      Country,
+      Language,
+      Title,
+      portfolioFiles,
+      resumeFile,
+      hourlyRate,
+    });
+
+    const savedFreelancer = await freelancer.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Freelancer registered successfully",
+      data: savedFreelancer,
+    });
+  } catch (err) {
+    console.error(err);
+    if (err.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "Email, Phone, or Username already exists",
+      });
+    }
+    res.status(500).json({
+      success: false,
+      message: "Failed to save freelancer",
+      error: err.message,
+    });
+  }
 });
 
-// ❌ No app.listen() in Vercel serverless
-module.exports = app;
+
+
+// ❌ Do NOT use app.listen() in Vercel
+app.listen(8031, () => {
+  console.log("Server started on http://localhost:8031");
+});
