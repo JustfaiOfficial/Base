@@ -150,7 +150,7 @@ const [loading, setLoading] = useState(false);
   }
 };
 
-  // Steps configuration for the stepper and progress bar
+  
   const steps = [
     { id: 1, title: "Account", icon: <i className="bi bi-person fs-5"></i> },
     { id: 2, title: "Personal", icon: <i className="bi bi-person-vcard fs-5"></i> },
