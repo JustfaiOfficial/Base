@@ -138,7 +138,7 @@ const [loading, setLoading] = useState(false);
     console.log(payload)
 
     const res = await axios.post(
-      "https://backend-just-fai.vercel.app/api/signup/freelancers/register",
+      "https://justfaibackend.vercel.app/api/signup/freelancers/register",
       payload
     );
 
