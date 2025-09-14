@@ -16,9 +16,7 @@ import axios from "axios";
 
 
 
-// Main component for the Freelancer Signup multistep form
-// NOTE: This component requires the Bootstrap Icons CSS to be linked in your main HTML file.
-// Example: <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 const Signup = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
