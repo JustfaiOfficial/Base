@@ -26,6 +26,7 @@ function App() {
 
 
           
+          {/* Signup route */}
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
