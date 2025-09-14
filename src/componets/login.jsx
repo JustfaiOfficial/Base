@@ -6,10 +6,7 @@ import axios from "axios";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -29,11 +26,9 @@ export default function LoginForm() {
         formData
       );
 
-      // save token for future requests
       localStorage.setItem("token", res.data.token);
-
       alert("Login successful!");
-      console.log("User:", res.data);
+      console.log("User:", res.data.user);
 
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
