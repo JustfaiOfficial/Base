@@ -25,7 +25,7 @@ export default function LoginForm() {
 
     try {
       const res = await axios.post(
-        "https://justfaibackend.vercel.app//api/freelancers/login",
+        "https://justfaibackend.vercel.app/api/freelancers/login",
         formData
       );
 
