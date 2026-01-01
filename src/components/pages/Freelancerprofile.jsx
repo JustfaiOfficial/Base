@@ -104,6 +104,33 @@ const FreelancerProfilePage = () => {
     return (
         <>
             <Navbar />
+            <style>{`
+                @media (max-width: 992px) {
+                    .profile-header-row { flex-direction: column !important; text-align: center !important; }
+                    .profile-header-row .col-md-auto { margin-bottom: 1rem; }
+                    .profile-actions { justify-content: center !important; }
+                }
+                @media (max-width: 768px) {
+                    .performance-stats { flex-direction: column !important; gap: 1.5rem !important; }
+                    .profile-card { padding: 1.25rem !important; }
+                }
+                @media (max-width: 576px) {
+                    .profile-header-row h1 { font-size: 1.5rem !important; }
+                    .profile-header-row p { font-size: 0.9rem !important; }
+                    .profile-header-row img { width: 90px !important; height: 90px !important; }
+                    .profile-card { padding: 1rem !important; border-radius: 0.875rem !important; }
+                    .profile-card h3 { font-size: 1.1rem !important; }
+                    .profile-stats h4, .profile-stats h3 { font-size: 1rem !important; }
+                    .profile-stats p { font-size: 0.75rem !important; }
+                    .badge { font-size: 0.7rem !important; padding: 0.4em 0.7em !important; }
+                    .btn { padding: 0.5rem 1rem !important; font-size: 0.85rem !important; }
+                }
+                @media (max-width: 400px) {
+                    .profile-header-row h1 { font-size: 1.25rem !important; }
+                    .profile-header-row img { width: 80px !important; height: 80px !important; }
+                    .profile-card { padding: 0.875rem !important; }
+                }
+            `}</style>
             <div style={pageStyle}>
                 {form ? (
                     <Container>

@@ -292,18 +292,54 @@ const styles = {
     },
 };
 
-// Responsive CSS
+// Responsive CSS - Comprehensive Mobile Support
 const dashboardCSS = `
+  /* Large tablets and small desktops */
+  @media (max-width: 1200px) {
+    .dashboard-container { padding: 1.5rem !important; }
+  }
+
+  /* Tablets */
   @media (max-width: 992px) {
     .dashboard-grid3 { grid-template-columns: 1fr !important; }
     .dashboard-grid2 { grid-template-columns: 1fr !important; }
     .dashboard-grid4 { grid-template-columns: repeat(2, 1fr) !important; }
+    .dashboard-container { padding: 1.25rem !important; }
   }
+
+  /* Large phones / Small tablets */
+  @media (max-width: 768px) {
+    .dashboard-grid4 { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+    .welcome-card { padding: 1.5rem !important; }
+    .welcome-card h1 { font-size: 1.5rem !important; }
+    .welcome-card p { font-size: 0.9rem !important; }
+  }
+
+  /* Mobile phones */
   @media (max-width: 576px) {
     .dashboard-grid4 { grid-template-columns: 1fr !important; }
-    .dashboard-container { padding: 1rem !important; }
-    .welcome-card { padding: 1.5rem !important; }
-    .stat-card { padding: 1rem !important; }
+    .dashboard-container { padding: 0.75rem !important; }
+    .welcome-card { padding: 1rem !important; border-radius: 16px !important; }
+    .welcome-card h1 { font-size: 1.25rem !important; line-height: 1.3 !important; }
+    .welcome-card p { font-size: 0.85rem !important; }
+    .stat-card { padding: 0.875rem !important; border-radius: 12px !important; }
+    .stat-card h3 { font-size: 1.5rem !important; }
+    .stat-card span { font-size: 0.75rem !important; }
+    .project-card { padding: 1rem !important; }
+    .project-card h4 { font-size: 0.95rem !important; }
+    .section-header { flex-direction: column !important; gap: 0.75rem !important; align-items: flex-start !important; }
+    .chart-card { padding: 1rem !important; border-radius: 14px !important; }
+    .metric-card { padding: 0.875rem !important; }
+    .metric-card h2 { font-size: 1.25rem !important; }
+  }
+
+  /* Extra small phones */
+  @media (max-width: 400px) {
+    .dashboard-container { padding: 0.5rem !important; }
+    .welcome-card { padding: 0.875rem !important; }
+    .welcome-card h1 { font-size: 1.1rem !important; }
+    .stat-card { padding: 0.75rem !important; }
+    .stat-card h3 { font-size: 1.25rem !important; }
   }
 `;
 

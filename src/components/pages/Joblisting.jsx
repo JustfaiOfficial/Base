@@ -1091,6 +1091,84 @@ const customStyles = `
     border-color: var(--accent-purple);
     color: var(--accent-purple-light);
   }
+
+  /* ==========================================
+     COMPREHENSIVE RESPONSIVE STYLES
+     ========================================== */
+  
+  /* Large tablets */
+  @media (max-width: 1200px) {
+    .hero-title { font-size: clamp(2rem, 5vw, 3rem); }
+    .search-container-premium { padding: 1.5rem; }
+  }
+
+  /* Tablets */
+  @media (max-width: 992px) {
+    .hero-header { padding: 1.5rem 0 2rem; }
+    .hero-title { font-size: 2rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .hero-stats-inline { flex-wrap: wrap; padding: 0.75rem 1rem; gap: 1rem; }
+    .search-container-premium { padding: 1.25rem; border-radius: 18px; }
+    .jobs-section-header { flex-direction: column; align-items: flex-start; }
+    .jobs-header-filters { width: 100%; justify-content: flex-start; }
+    .category-card { padding: 1.75rem 1.5rem; }
+    .category-icon { font-size: 2.5rem; }
+  }
+
+  /* Large phones */
+  @media (max-width: 768px) {
+    .hero-badge { font-size: 0.75rem; padding: 0.4rem 0.75rem; }
+    .hero-title { font-size: 1.75rem; line-height: 1.15; }
+    .hero-stat-divider { display: none; }
+    .hero-stats-inline { gap: 1.5rem; }
+    .search-container-premium { padding: 1rem; border-radius: 16px; }
+    .search-submit-btn { width: 100%; justify-content: center; padding: 0.75rem; }
+    .search-tags { margin-top: 1rem; padding-top: 1rem; }
+    .job-card { padding: 1.25rem; border-radius: 16px; }
+    .jobs-header-title { font-size: 1.1rem; }
+    .filter-chip { padding: 0.4rem 0.75rem; font-size: 0.75rem; }
+  }
+
+  /* Mobile phones */
+  @media (max-width: 576px) {
+    .hero-header { padding: 1rem 0 1.5rem; }
+    .hero-badge { font-size: 0.7rem; }
+    .hero-title { font-size: 1.5rem; }
+    .hero-subtitle { font-size: 0.9rem; }
+    .hero-stats-inline { width: 100%; justify-content: space-around; }
+    .hero-stat-value { font-size: 1rem; }
+    .hero-stat-label { font-size: 0.65rem; }
+    .search-container-premium { padding: 0.875rem; }
+    .search-field { padding: 0 0.75rem; }
+    .search-input, .search-select { padding: 0.75rem 0 !important; font-size: 0.9rem !important; }
+    .search-tags-list { gap: 0.35rem; }
+    .search-tag { padding: 0.35rem 0.6rem; font-size: 0.7rem; }
+    .job-card { padding: 1rem; }
+    .job-card-title { font-size: 0.95rem; }
+    .job-skills-list .badge-skill { font-size: 0.7rem; padding: 0.35rem 0.6rem; }
+    .job-card-meta span { font-size: 0.75rem; }
+    .budget-value { font-size: 0.95rem; }
+    .apply-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+    .jobs-section-header { padding: 1rem; border-radius: 12px; }
+    .jobs-header-title { font-size: 1rem; }
+    .feature-highlight-card { padding: 0.75rem 1rem; font-size: 0.8rem; }
+    .category-card { padding: 1.25rem 1rem; border-radius: 14px; }
+    .category-icon { font-size: 2rem; }
+    .category-title { font-size: 1rem; }
+    .category-count { font-size: 0.8rem; }
+    .company-avatar { width: 44px; height: 44px; border-radius: 10px; }
+  }
+
+  /* Extra small phones */
+  @media (max-width: 400px) {
+    .hero-title { font-size: 1.25rem; }
+    .hero-subtitle { font-size: 0.85rem; }
+    .hero-stats-inline { padding: 0.5rem 0.75rem; }
+    .hero-stat-value { font-size: 0.9rem; }
+    .search-container-premium { padding: 0.75rem; }
+    .job-card { padding: 0.875rem; }
+    .apply-btn { width: 100%; justify-content: center; }
+  }
 `;
 
 // Enhanced job data

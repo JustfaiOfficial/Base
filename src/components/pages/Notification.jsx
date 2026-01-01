@@ -467,10 +467,58 @@ const customStyles = `
     box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
   }
 
-  /* Responsive */
+  /* Comprehensive Responsive */
+  @media (max-width: 1200px) {
+    .notification-page .container { padding: 0 1.5rem; }
+  }
+
   @media (max-width: 992px) {
     .page-header { flex-direction: column; gap: 1rem; text-align: center; }
     .header-left { flex-direction: column; }
+    .sidebar-card { padding: 1.25rem; }
+  }
+
+  @media (max-width: 768px) {
+    .filter-container { gap: 0.35rem; padding: 0.4rem; }
+    .filter-pill { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+    .notification-item { padding: 1rem; gap: 0.75rem; }
+    .notification-icon { width: 42px; height: 42px; font-size: 1.1rem; }
+    .notification-title { font-size: 0.9rem; }
+    .notification-desc { font-size: 0.8rem; }
+    .sidebar-card { padding: 1rem; border-radius: 14px; }
+  }
+
+  @media (max-width: 576px) {
+    .page-header { margin-bottom: 1.5rem; padding: 0.5rem 0; }
+    .header-icon { width: 48px; height: 48px; font-size: 1.25rem; }
+    .header-text h1 { font-size: 1.35rem; }
+    .btn-mark-all { padding: 0.6rem 1rem; font-size: 0.8rem; }
+    .filter-container { overflow-x: auto; flex-wrap: nowrap; padding: 0.35rem; }
+    .filter-pill { flex: 0 0 auto; padding: 0.45rem 0.6rem; font-size: 0.75rem; }
+    .filter-count { font-size: 0.6rem; padding: 0.1rem 0.35rem; }
+    .main-card { border-radius: 14px; }
+    .notification-list { padding: 0.5rem; gap: 0.35rem; }
+    .notification-item { padding: 0.875rem; border-radius: 12px; }
+    .notification-icon { width: 38px; height: 38px; font-size: 1rem; border-radius: 10px; }
+    .notification-title { font-size: 0.85rem; }
+    .notification-desc { font-size: 0.75rem; -webkit-line-clamp: 1; }
+    .notification-time { font-size: 0.65rem; }
+    .unread-dot { width: 8px; height: 8px; top: 1rem; right: 1rem; }
+    .sidebar-card { padding: 0.875rem; border-radius: 12px; margin-bottom: 1rem; }
+    .sidebar-icon { width: 32px; height: 32px; font-size: 0.85rem; }
+    .sidebar-header h6 { font-size: 0.85rem; }
+    .stat-row { padding: 0.6rem 0; }
+    .stat-label { font-size: 0.75rem; }
+    .stat-value { font-size: 0.9rem; }
+    .action-btn { padding: 0.875rem; font-size: 0.85rem; }
+  }
+
+  @media (max-width: 400px) {
+    .header-icon { width: 40px; height: 40px; }
+    .header-text h1 { font-size: 1.15rem; }
+    .notification-item { padding: 0.75rem; }
+    .notification-icon { width: 34px; height: 34px; font-size: 0.9rem; }
+    .filter-pill { font-size: 0.7rem; }
   }
 `;
 

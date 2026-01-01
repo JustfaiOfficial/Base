@@ -547,22 +547,47 @@ const customStyles = `
     border-color: var(--accent-purple);
   }
 
-  /* Responsive */
+  /* Comprehensive Responsive */
+  @media (max-width: 1200px) {
+    .page-container { padding: 1.5rem; }
+  }
+
   @media (max-width: 992px) {
     .page-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
     .balance-card { margin-bottom: 1rem; }
+    .balance-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .page-container { padding: 1.25rem; }
+    .section-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    .balance-card { padding: 1.25rem; }
+    .balance-value { font-size: 1.75rem; }
+    .transactions-table { display: block; overflow-x: auto; }
   }
 
   @media (max-width: 576px) {
-    .section-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
-    .filter-pills { width: 100%; }
-    .filter-pill { flex: 1; text-align: center; }
+    .page-container { padding: 0.75rem; }
+    .filter-pills { width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+    .filter-pill { flex: 0 0 auto; text-align: center; font-size: 0.8rem; padding: 0.5rem 0.75rem; }
     .balance-value { font-size: 1.5rem; }
     .header-icon { width: 48px; height: 48px; font-size: 1.25rem; }
-    .header-text h1 { font-size: 1.5rem; }
-    .transactions-table th, .transactions-table td { padding: 0.75rem 0.5rem; font-size: 0.8rem; }
+    .header-text h1 { font-size: 1.35rem; }
+    .transactions-table th, .transactions-table td { padding: 0.6rem 0.4rem; font-size: 0.75rem; }
     .tx-project { flex-direction: column; gap: 0.5rem; }
-    .tx-avatar { width: 32px; height: 32px; font-size: 0.75rem; }
+    .tx-avatar { width: 32px; height: 32px; font-size: 0.7rem; }
+    .glass-card { padding: 1rem; border-radius: 14px; }
+    .balance-card { padding: 1rem; border-radius: 14px; }
+    .quick-amounts { gap: 0.5rem; }
+    .quick-amount { padding: 0.4rem 0.75rem; font-size: 0.75rem; }
+  }
+
+  @media (max-width: 400px) {
+    .page-container { padding: 0.5rem; }
+    .header-icon { width: 40px; height: 40px; font-size: 1rem; }
+    .header-text h1 { font-size: 1.1rem; }
+    .balance-value { font-size: 1.25rem; }
+    .filter-pill { font-size: 0.7rem; padding: 0.4rem 0.6rem; }
   }
 `;
 
