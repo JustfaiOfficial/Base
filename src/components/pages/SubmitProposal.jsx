@@ -695,6 +695,28 @@ const customStyles = `
     font-size: 0.7rem;
     font-weight: 600;
   }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .step-tabs { flex-wrap: wrap; padding: 0.75rem; }
+    .step-tab { padding: 0.75rem 1rem; flex: 1 1 auto; min-width: 120px; }
+    .client-stats-grid { grid-template-columns: 1fr; }
+    .milestone-progress { flex-direction: column; }
+    .progress-divider { width: 100%; height: 1px; }
+  }
+
+  @media (max-width: 576px) {
+    .proposal-page { padding: 1rem 0; }
+    .step-tabs { flex-direction: column; }
+    .step-tab { width: 100%; justify-content: center; }
+    .section-header { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+    .section-header-left { flex-direction: column; align-items: flex-start; text-align: left; }
+    .milestone-header { flex-direction: column; gap: 0.75rem; }
+    .milestone-actions { justify-content: flex-end; width: 100%; }
+    .btn-primary-action, .btn-secondary-action { padding: 0.875rem; font-size: 0.9rem; }
+    .ai-icon-wrapper { width: 36px; height: 36px; font-size: 1rem; }
+    .budget-item { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+  }
 `;
 
 // Animation variants

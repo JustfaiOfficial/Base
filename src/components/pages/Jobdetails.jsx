@@ -1074,6 +1074,26 @@ const customStyles = `
   .attachment-card:hover .attachment-download {
     color: var(--accent-purple-light);
   }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .job-header-top { flex-direction: column; gap: 1rem; }
+    .job-header-actions { justify-content: flex-start; }
+    .job-key-details { grid-template-columns: repeat(2, 1fr); }
+    .client-stats-grid { grid-template-columns: 1fr; }
+    .action-stats { flex-direction: column; gap: 1rem; }
+    .action-stat-divider { width: 100%; height: 1px; }
+  }
+
+  @media (max-width: 576px) {
+    .job-key-details { grid-template-columns: 1fr; }
+    .job-badges-row { flex-wrap: wrap; }
+    .job-main-title { font-size: 1.25rem; }
+    .btn-apply, .btn-save { padding: 0.75rem 1.5rem; font-size: 0.95rem; }
+    .job-header-bar { padding: 0.5rem 1rem; }
+    .section-header { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+    .glass-card { padding: 1rem; }
+  }
 `;
 
 // Animation variants

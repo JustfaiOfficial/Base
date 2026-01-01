@@ -292,6 +292,21 @@ const styles = {
     },
 };
 
+// Responsive CSS
+const dashboardCSS = `
+  @media (max-width: 992px) {
+    .dashboard-grid3 { grid-template-columns: 1fr !important; }
+    .dashboard-grid2 { grid-template-columns: 1fr !important; }
+    .dashboard-grid4 { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+  @media (max-width: 576px) {
+    .dashboard-grid4 { grid-template-columns: 1fr !important; }
+    .dashboard-container { padding: 1rem !important; }
+    .welcome-card { padding: 1.5rem !important; }
+    .stat-card { padding: 1rem !important; }
+  }
+`;
+
 const Dashboard = () => {
     const getUrgencyColor = (urgency) => {
         const colors = {
@@ -306,8 +321,9 @@ const Dashboard = () => {
     return (
         <>
             <Navbar />
+            <style>{dashboardCSS}</style>
             <div style={styles.page}>
-                <div style={styles.container}>
+                <div className="dashboard-container" style={styles.container}>
                     {/* Welcome Section */}
                     <motion.div
                         style={styles.welcomeCard}
@@ -364,7 +380,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Projects & Deadlines Row */}
-                    <div style={styles.grid3}>
+                    <div className="dashboard-grid3" style={styles.grid3}>
                         {/* Active Projects */}
                         <div>
                             <div style={styles.sectionHeader}>
@@ -487,7 +503,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Messages & Earnings Row */}
-                    <div style={styles.grid2}>
+                    <div className="dashboard-grid2" style={styles.grid2}>
                         {/* Messages */}
                         <div>
                             <div style={styles.sectionHeader}>
@@ -627,7 +643,7 @@ const Dashboard = () => {
                         </button>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
+                    <div className="dashboard-grid4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
                         {[
                             { label: 'Code Quality', value: '94.2%', trend: '+3.1%', icon: 'bi-code-slash', color: '#3b82f6' },
                             { label: 'Response Rate', value: '96.8%', trend: '+1.5%', icon: 'bi-clock', color: '#8b5cf6' },

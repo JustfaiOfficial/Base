@@ -719,6 +719,25 @@ const customStyles = `
     .detail-amount {
       text-align: left;
     }
+
+    .page-stats {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-stat {
+      min-width: 70px;
+    }
+
+    .filter-tabs {
+      flex-wrap: wrap;
+    }
+
+    .list-header {
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
   }
 `;
 

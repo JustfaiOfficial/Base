@@ -591,6 +591,30 @@ const customStyles = `
     background: rgba(255, 255, 255, 0.1);
     border-color: white;
   }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .hero-section { padding: 3rem 0 4rem; }
+    .hero-title { font-size: 2.25rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .features-section, .how-section, .jobs-section, .testimonials-section { padding: 4rem 0; }
+    .step-connector { display: none; }
+  }
+
+  @media (max-width: 576px) {
+    .hero-section { padding: 2rem 0 3rem; }
+    .hero-title { font-size: 1.75rem; }
+    .hero-subtitle { font-size: 0.95rem; }
+    .hero-buttons { flex-direction: column; width: 100%; }
+    .btn-hero-primary, .btn-hero-secondary { width: 100%; justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-stat { min-width: 80px; }
+    .section-title { font-size: 1.5rem; }
+    .feature-card, .job-card, .testimonial-card { padding: 1.5rem; }
+    .cta-section { padding: 3rem 0; }
+    .cta-buttons { flex-direction: column; width: 100%; }
+    .btn-cta-primary, .btn-cta-secondary { width: 100%; }
+  }
 `;
 
 const Homepage = () => {

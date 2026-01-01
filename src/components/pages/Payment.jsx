@@ -546,408 +546,426 @@ const customStyles = `
     background: rgba(139, 92, 246, 0.2);
     border-color: var(--accent-purple);
   }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .page-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .balance-card { margin-bottom: 1rem; }
+  }
+
+  @media (max-width: 576px) {
+    .section-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    .filter-pills { width: 100%; }
+    .filter-pill { flex: 1; text-align: center; }
+    .balance-value { font-size: 1.5rem; }
+    .header-icon { width: 48px; height: 48px; font-size: 1.25rem; }
+    .header-text h1 { font-size: 1.5rem; }
+    .transactions-table th, .transactions-table td { padding: 0.75rem 0.5rem; font-size: 0.8rem; }
+    .tx-project { flex-direction: column; gap: 0.5rem; }
+    .tx-avatar { width: 32px; height: 32px; font-size: 0.75rem; }
+  }
 `;
 
 const mockTransactions = [
-    { id: 1, project: 'E-commerce Platform', client: 'Sarah Johnson', amount: 2500, type: 'credit', status: 'completed', date: 'Dec 28, 2024' },
-    { id: 2, project: 'Mobile App UI', client: 'David Chen', amount: 1800, type: 'credit', status: 'completed', date: 'Dec 25, 2024' },
-    { id: 3, project: 'Withdrawal to Bank', client: 'Bank ****4523', amount: 3000, type: 'debit', status: 'processing', date: 'Dec 24, 2024' },
-    { id: 4, project: 'Dashboard Redesign', client: 'Emily Parker', amount: 1200, type: 'credit', status: 'pending', date: 'Dec 22, 2024' },
-    { id: 5, project: 'API Integration', client: 'Tech Solutions', amount: 950, type: 'credit', status: 'completed', date: 'Dec 20, 2024' },
+  { id: 1, project: 'E-commerce Platform', client: 'Sarah Johnson', amount: 2500, type: 'credit', status: 'completed', date: 'Dec 28, 2024' },
+  { id: 2, project: 'Mobile App UI', client: 'David Chen', amount: 1800, type: 'credit', status: 'completed', date: 'Dec 25, 2024' },
+  { id: 3, project: 'Withdrawal to Bank', client: 'Bank ****4523', amount: 3000, type: 'debit', status: 'processing', date: 'Dec 24, 2024' },
+  { id: 4, project: 'Dashboard Redesign', client: 'Emily Parker', amount: 1200, type: 'credit', status: 'pending', date: 'Dec 22, 2024' },
+  { id: 5, project: 'API Integration', client: 'Tech Solutions', amount: 950, type: 'credit', status: 'completed', date: 'Dec 20, 2024' },
 ];
 
 const PaymentPage = () => {
-    const [activeFilter, setActiveFilter] = useState('all');
-    const [selectedMethod, setSelectedMethod] = useState(1);
-    const [withdrawAmount, setWithdrawAmount] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [selectedMethod, setSelectedMethod] = useState(1);
+  const [withdrawAmount, setWithdrawAmount] = useState('');
 
-    const chartData = [65, 45, 80, 55, 90, 70, 85];
-    const chartLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const chartData = [65, 45, 80, 55, 90, 70, 85];
+  const chartLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
-    };
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
 
-    return (
-        <>
-            <Navbar />
-            <style>{customStyles}</style>
+  return (
+    <>
+      <Navbar />
+      <style>{customStyles}</style>
 
-            <div className="payment-page">
-                <div className="page-content">
-                    <Container className="py-5">
-                        {/* Header */}
-                        <motion.div
-                            className="page-header"
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                        >
-                            <div className="header-left">
-                                <div className="header-icon">
-                                    <i className="bi bi-wallet2" />
-                                </div>
-                                <div className="header-text">
-                                    <h1>Payments</h1>
-                                    <p>Manage your earnings and withdrawals</p>
-                                </div>
-                            </div>
-                            <div className="d-flex gap-2">
-                                <motion.button
-                                    className="btn-action secondary"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <i className="bi bi-download" />
-                                    Export
-                                </motion.button>
-                                <motion.button
-                                    className="btn-action primary"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <i className="bi bi-arrow-up-right" />
-                                    Withdraw
-                                </motion.button>
-                            </div>
-                        </motion.div>
-
-                        {/* Balance Cards */}
-                        <Row className="g-4 mb-4">
-                            <Col md={4}>
-                                <motion.div
-                                    className="balance-card primary"
-                                    variants={cardVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    transition={{ delay: 0.1 }}
-                                >
-                                    <div className="balance-icon primary">
-                                        <i className="bi bi-wallet2" />
-                                    </div>
-                                    <div className="balance-label">Available Balance</div>
-                                    <div className="balance-value">$12,450</div>
-                                    <span className="balance-change up">
-                                        <i className="bi bi-arrow-up" />
-                                        +12.5% this month
-                                    </span>
-                                </motion.div>
-                            </Col>
-                            <Col md={4}>
-                                <motion.div
-                                    className="balance-card warning"
-                                    variants={cardVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    transition={{ delay: 0.2 }}
-                                >
-                                    <div className="balance-icon warning">
-                                        <i className="bi bi-hourglass-split" />
-                                    </div>
-                                    <div className="balance-label">Pending</div>
-                                    <div className="balance-value">$3,200</div>
-                                    <span className="balance-change up">
-                                        <i className="bi bi-clock" />
-                                        2 payments pending
-                                    </span>
-                                </motion.div>
-                            </Col>
-                            <Col md={4}>
-                                <motion.div
-                                    className="balance-card success"
-                                    variants={cardVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    transition={{ delay: 0.3 }}
-                                >
-                                    <div className="balance-icon success">
-                                        <i className="bi bi-graph-up-arrow" />
-                                    </div>
-                                    <div className="balance-label">Total Earned</div>
-                                    <div className="balance-value">$48,750</div>
-                                    <span className="balance-change up">
-                                        <i className="bi bi-arrow-up" />
-                                        +8.2% vs last month
-                                    </span>
-                                </motion.div>
-                            </Col>
-                        </Row>
-
-                        <Row className="g-4">
-                            {/* Left Column */}
-                            <Col lg={8}>
-                                {/* Earnings Chart */}
-                                <motion.div
-                                    className="section-card"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                >
-                                    <div className="section-header">
-                                        <h5 className="section-title">
-                                            <i className="bi bi-bar-chart-line" />
-                                            Earnings Overview
-                                        </h5>
-                                        <div className="filter-pills">
-                                            {['Week', 'Month', 'Year'].map(f => (
-                                                <button key={f} className={`filter-pill ${f === 'Week' ? 'active' : ''}`}>{f}</button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="section-body">
-                                        <div className="chart-placeholder">
-                                            <div className="chart-bars">
-                                                {chartData.map((val, i) => (
-                                                    <motion.div
-                                                        key={i}
-                                                        className="chart-bar"
-                                                        style={{ height: `${val}%` }}
-                                                        data-value={`$${val * 10}`}
-                                                        initial={{ height: 0 }}
-                                                        animate={{ height: `${val}%` }}
-                                                        transition={{ delay: 0.5 + i * 0.05, duration: 0.4 }}
-                                                    />
-                                                ))}
-                                            </div>
-                                            <div className="chart-labels">
-                                                {chartLabels.map(l => (
-                                                    <span key={l} className="chart-label">{l}</span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Transactions */}
-                                <motion.div
-                                    className="section-card"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 }}
-                                >
-                                    <div className="section-header">
-                                        <h5 className="section-title">
-                                            <i className="bi bi-clock-history" />
-                                            Recent Transactions
-                                        </h5>
-                                        <div className="filter-pills">
-                                            {['All', 'Income', 'Withdrawals'].map(f => (
-                                                <button
-                                                    key={f}
-                                                    className={`filter-pill ${activeFilter === f.toLowerCase() ? 'active' : ''}`}
-                                                    onClick={() => setActiveFilter(f.toLowerCase())}
-                                                >
-                                                    {f}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div style={{ overflowX: 'auto' }}>
-                                        <table className="transactions-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Project</th>
-                                                    <th>Date</th>
-                                                    <th>Amount</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {mockTransactions.map((tx, i) => (
-                                                    <motion.tr
-                                                        key={tx.id}
-                                                        initial={{ opacity: 0, x: -20 }}
-                                                        animate={{ opacity: 1, x: 0 }}
-                                                        transition={{ delay: 0.6 + i * 0.05 }}
-                                                    >
-                                                        <td>
-                                                            <div className="tx-project">
-                                                                <div className="tx-avatar">{tx.project.charAt(0)}</div>
-                                                                <div>
-                                                                    <div className="tx-name">{tx.project}</div>
-                                                                    <div className="tx-client">{tx.client}</div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td style={{ color: 'var(--text-secondary)' }}>{tx.date}</td>
-                                                        <td className={`tx-amount ${tx.type}`}>
-                                                            {tx.type === 'credit' ? '+' : '-'}${tx.amount.toLocaleString()}
-                                                        </td>
-                                                        <td>
-                                                            <span className={`tx-status ${tx.status}`}>
-                                                                <i className={`bi ${tx.status === 'completed' ? 'bi-check-circle' : tx.status === 'pending' ? 'bi-clock' : 'bi-arrow-repeat'}`} />
-                                                                {tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}
-                                                            </span>
-                                                        </td>
-                                                    </motion.tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </motion.div>
-                            </Col>
-
-                            {/* Right Column - Sidebar */}
-                            <Col lg={4}>
-                                {/* Payment Methods */}
-                                <motion.div
-                                    className="section-card"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                >
-                                    <div className="section-header">
-                                        <h5 className="section-title">
-                                            <i className="bi bi-credit-card" />
-                                            Payment Methods
-                                        </h5>
-                                    </div>
-                                    <div className="section-body">
-                                        <motion.div
-                                            className={`payment-method ${selectedMethod === 1 ? 'selected' : ''}`}
-                                            whileHover={{ scale: 1.01 }}
-                                            onClick={() => setSelectedMethod(1)}
-                                        >
-                                            <div className="method-icon bank"><i className="bi bi-bank" /></div>
-                                            <div className="method-info">
-                                                <div className="method-name">Chase Bank</div>
-                                                <div className="method-details">****4523</div>
-                                            </div>
-                                            <span className="method-badge default">Default</span>
-                                        </motion.div>
-
-                                        <motion.div
-                                            className={`payment-method ${selectedMethod === 2 ? 'selected' : ''}`}
-                                            whileHover={{ scale: 1.01 }}
-                                            onClick={() => setSelectedMethod(2)}
-                                        >
-                                            <div className="method-icon paypal"><i className="bi bi-paypal" /></div>
-                                            <div className="method-info">
-                                                <div className="method-name">PayPal</div>
-                                                <div className="method-details">john@email.com</div>
-                                            </div>
-                                        </motion.div>
-
-                                        <motion.div
-                                            className={`payment-method ${selectedMethod === 3 ? 'selected' : ''}`}
-                                            whileHover={{ scale: 1.01 }}
-                                            onClick={() => setSelectedMethod(3)}
-                                        >
-                                            <div className="method-icon card"><i className="bi bi-credit-card-2-front" /></div>
-                                            <div className="method-info">
-                                                <div className="method-name">Visa Card</div>
-                                                <div className="method-details">****8912</div>
-                                            </div>
-                                        </motion.div>
-
-                                        <motion.div
-                                            className="add-method"
-                                            whileHover={{ scale: 1.01 }}
-                                        >
-                                            <i className="bi bi-plus-lg" />
-                                            Add Payment Method
-                                        </motion.div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Quick Withdrawal */}
-                                <motion.div
-                                    className="section-card"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.5 }}
-                                >
-                                    <div className="section-header">
-                                        <h5 className="section-title">
-                                            <i className="bi bi-arrow-up-right-circle" />
-                                            Quick Withdraw
-                                        </h5>
-                                    </div>
-                                    <div className="section-body">
-                                        <input
-                                            type="text"
-                                            className="withdraw-input"
-                                            placeholder="$0.00"
-                                            value={withdrawAmount}
-                                            onChange={(e) => setWithdrawAmount(e.target.value)}
-                                        />
-                                        <div className="quick-amounts">
-                                            {[100, 500, 1000, 2000].map(amt => (
-                                                <motion.button
-                                                    key={amt}
-                                                    className="quick-amount"
-                                                    whileHover={{ scale: 1.05 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                    onClick={() => setWithdrawAmount(`$${amt}`)}
-                                                >
-                                                    ${amt}
-                                                </motion.button>
-                                            ))}
-                                        </div>
-                                        <motion.button
-                                            className="btn-action primary w-100"
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                        >
-                                            <i className="bi bi-send" />
-                                            Withdraw Now
-                                        </motion.button>
-                                    </div>
-                                </motion.div>
-
-                                {/* Quick Stats */}
-                                <motion.div
-                                    className="section-card"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.6 }}
-                                >
-                                    <div className="section-header">
-                                        <h5 className="section-title">
-                                            <i className="bi bi-pie-chart" />
-                                            Statistics
-                                        </h5>
-                                    </div>
-                                    <div className="section-body">
-                                        <div className="quick-stat">
-                                            <span className="quick-stat-label">
-                                                <i className="bi bi-check-circle" style={{ color: 'var(--success-green)' }} />
-                                                Completed Projects
-                                            </span>
-                                            <span className="quick-stat-value">24</span>
-                                        </div>
-                                        <div className="quick-stat">
-                                            <span className="quick-stat-label">
-                                                <i className="bi bi-clock" style={{ color: 'var(--warning-yellow)' }} />
-                                                Avg. Payment Time
-                                            </span>
-                                            <span className="quick-stat-value">2.3 days</span>
-                                        </div>
-                                        <div className="quick-stat">
-                                            <span className="quick-stat-label">
-                                                <i className="bi bi-currency-dollar" style={{ color: 'var(--accent-purple-light)' }} />
-                                                Avg. Project Value
-                                            </span>
-                                            <span className="quick-stat-value">$1,850</span>
-                                        </div>
-                                        <div className="quick-stat">
-                                            <span className="quick-stat-label">
-                                                <i className="bi bi-arrow-repeat" style={{ color: 'var(--info-blue)' }} />
-                                                Repeat Clients
-                                            </span>
-                                            <span className="quick-stat-value">68%</span>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </Col>
-                        </Row>
-                    </Container>
+      <div className="payment-page">
+        <div className="page-content">
+          <Container className="py-5">
+            {/* Header */}
+            <motion.div
+              className="page-header"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="header-left">
+                <div className="header-icon">
+                  <i className="bi bi-wallet2" />
                 </div>
-            </div>
+                <div className="header-text">
+                  <h1>Payments</h1>
+                  <p>Manage your earnings and withdrawals</p>
+                </div>
+              </div>
+              <div className="d-flex gap-2">
+                <motion.button
+                  className="btn-action secondary"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <i className="bi bi-download" />
+                  Export
+                </motion.button>
+                <motion.button
+                  className="btn-action primary"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <i className="bi bi-arrow-up-right" />
+                  Withdraw
+                </motion.button>
+              </div>
+            </motion.div>
 
-            <Footer />
-        </>
-    );
+            {/* Balance Cards */}
+            <Row className="g-4 mb-4">
+              <Col md={4}>
+                <motion.div
+                  className="balance-card primary"
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.1 }}
+                >
+                  <div className="balance-icon primary">
+                    <i className="bi bi-wallet2" />
+                  </div>
+                  <div className="balance-label">Available Balance</div>
+                  <div className="balance-value">$12,450</div>
+                  <span className="balance-change up">
+                    <i className="bi bi-arrow-up" />
+                    +12.5% this month
+                  </span>
+                </motion.div>
+              </Col>
+              <Col md={4}>
+                <motion.div
+                  className="balance-card warning"
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.2 }}
+                >
+                  <div className="balance-icon warning">
+                    <i className="bi bi-hourglass-split" />
+                  </div>
+                  <div className="balance-label">Pending</div>
+                  <div className="balance-value">$3,200</div>
+                  <span className="balance-change up">
+                    <i className="bi bi-clock" />
+                    2 payments pending
+                  </span>
+                </motion.div>
+              </Col>
+              <Col md={4}>
+                <motion.div
+                  className="balance-card success"
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.3 }}
+                >
+                  <div className="balance-icon success">
+                    <i className="bi bi-graph-up-arrow" />
+                  </div>
+                  <div className="balance-label">Total Earned</div>
+                  <div className="balance-value">$48,750</div>
+                  <span className="balance-change up">
+                    <i className="bi bi-arrow-up" />
+                    +8.2% vs last month
+                  </span>
+                </motion.div>
+              </Col>
+            </Row>
+
+            <Row className="g-4">
+              {/* Left Column */}
+              <Col lg={8}>
+                {/* Earnings Chart */}
+                <motion.div
+                  className="section-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="section-header">
+                    <h5 className="section-title">
+                      <i className="bi bi-bar-chart-line" />
+                      Earnings Overview
+                    </h5>
+                    <div className="filter-pills">
+                      {['Week', 'Month', 'Year'].map(f => (
+                        <button key={f} className={`filter-pill ${f === 'Week' ? 'active' : ''}`}>{f}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="section-body">
+                    <div className="chart-placeholder">
+                      <div className="chart-bars">
+                        {chartData.map((val, i) => (
+                          <motion.div
+                            key={i}
+                            className="chart-bar"
+                            style={{ height: `${val}%` }}
+                            data-value={`$${val * 10}`}
+                            initial={{ height: 0 }}
+                            animate={{ height: `${val}%` }}
+                            transition={{ delay: 0.5 + i * 0.05, duration: 0.4 }}
+                          />
+                        ))}
+                      </div>
+                      <div className="chart-labels">
+                        {chartLabels.map(l => (
+                          <span key={l} className="chart-label">{l}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Transactions */}
+                <motion.div
+                  className="section-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="section-header">
+                    <h5 className="section-title">
+                      <i className="bi bi-clock-history" />
+                      Recent Transactions
+                    </h5>
+                    <div className="filter-pills">
+                      {['All', 'Income', 'Withdrawals'].map(f => (
+                        <button
+                          key={f}
+                          className={`filter-pill ${activeFilter === f.toLowerCase() ? 'active' : ''}`}
+                          onClick={() => setActiveFilter(f.toLowerCase())}
+                        >
+                          {f}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table className="transactions-table">
+                      <thead>
+                        <tr>
+                          <th>Project</th>
+                          <th>Date</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {mockTransactions.map((tx, i) => (
+                          <motion.tr
+                            key={tx.id}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6 + i * 0.05 }}
+                          >
+                            <td>
+                              <div className="tx-project">
+                                <div className="tx-avatar">{tx.project.charAt(0)}</div>
+                                <div>
+                                  <div className="tx-name">{tx.project}</div>
+                                  <div className="tx-client">{tx.client}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td style={{ color: 'var(--text-secondary)' }}>{tx.date}</td>
+                            <td className={`tx-amount ${tx.type}`}>
+                              {tx.type === 'credit' ? '+' : '-'}${tx.amount.toLocaleString()}
+                            </td>
+                            <td>
+                              <span className={`tx-status ${tx.status}`}>
+                                <i className={`bi ${tx.status === 'completed' ? 'bi-check-circle' : tx.status === 'pending' ? 'bi-clock' : 'bi-arrow-repeat'}`} />
+                                {tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}
+                              </span>
+                            </td>
+                          </motion.tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </motion.div>
+              </Col>
+
+              {/* Right Column - Sidebar */}
+              <Col lg={4}>
+                {/* Payment Methods */}
+                <motion.div
+                  className="section-card"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="section-header">
+                    <h5 className="section-title">
+                      <i className="bi bi-credit-card" />
+                      Payment Methods
+                    </h5>
+                  </div>
+                  <div className="section-body">
+                    <motion.div
+                      className={`payment-method ${selectedMethod === 1 ? 'selected' : ''}`}
+                      whileHover={{ scale: 1.01 }}
+                      onClick={() => setSelectedMethod(1)}
+                    >
+                      <div className="method-icon bank"><i className="bi bi-bank" /></div>
+                      <div className="method-info">
+                        <div className="method-name">Chase Bank</div>
+                        <div className="method-details">****4523</div>
+                      </div>
+                      <span className="method-badge default">Default</span>
+                    </motion.div>
+
+                    <motion.div
+                      className={`payment-method ${selectedMethod === 2 ? 'selected' : ''}`}
+                      whileHover={{ scale: 1.01 }}
+                      onClick={() => setSelectedMethod(2)}
+                    >
+                      <div className="method-icon paypal"><i className="bi bi-paypal" /></div>
+                      <div className="method-info">
+                        <div className="method-name">PayPal</div>
+                        <div className="method-details">john@email.com</div>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      className={`payment-method ${selectedMethod === 3 ? 'selected' : ''}`}
+                      whileHover={{ scale: 1.01 }}
+                      onClick={() => setSelectedMethod(3)}
+                    >
+                      <div className="method-icon card"><i className="bi bi-credit-card-2-front" /></div>
+                      <div className="method-info">
+                        <div className="method-name">Visa Card</div>
+                        <div className="method-details">****8912</div>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      className="add-method"
+                      whileHover={{ scale: 1.01 }}
+                    >
+                      <i className="bi bi-plus-lg" />
+                      Add Payment Method
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                {/* Quick Withdrawal */}
+                <motion.div
+                  className="section-card"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="section-header">
+                    <h5 className="section-title">
+                      <i className="bi bi-arrow-up-right-circle" />
+                      Quick Withdraw
+                    </h5>
+                  </div>
+                  <div className="section-body">
+                    <input
+                      type="text"
+                      className="withdraw-input"
+                      placeholder="$0.00"
+                      value={withdrawAmount}
+                      onChange={(e) => setWithdrawAmount(e.target.value)}
+                    />
+                    <div className="quick-amounts">
+                      {[100, 500, 1000, 2000].map(amt => (
+                        <motion.button
+                          key={amt}
+                          className="quick-amount"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => setWithdrawAmount(`$${amt}`)}
+                        >
+                          ${amt}
+                        </motion.button>
+                      ))}
+                    </div>
+                    <motion.button
+                      className="btn-action primary w-100"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <i className="bi bi-send" />
+                      Withdraw Now
+                    </motion.button>
+                  </div>
+                </motion.div>
+
+                {/* Quick Stats */}
+                <motion.div
+                  className="section-card"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="section-header">
+                    <h5 className="section-title">
+                      <i className="bi bi-pie-chart" />
+                      Statistics
+                    </h5>
+                  </div>
+                  <div className="section-body">
+                    <div className="quick-stat">
+                      <span className="quick-stat-label">
+                        <i className="bi bi-check-circle" style={{ color: 'var(--success-green)' }} />
+                        Completed Projects
+                      </span>
+                      <span className="quick-stat-value">24</span>
+                    </div>
+                    <div className="quick-stat">
+                      <span className="quick-stat-label">
+                        <i className="bi bi-clock" style={{ color: 'var(--warning-yellow)' }} />
+                        Avg. Payment Time
+                      </span>
+                      <span className="quick-stat-value">2.3 days</span>
+                    </div>
+                    <div className="quick-stat">
+                      <span className="quick-stat-label">
+                        <i className="bi bi-currency-dollar" style={{ color: 'var(--accent-purple-light)' }} />
+                        Avg. Project Value
+                      </span>
+                      <span className="quick-stat-value">$1,850</span>
+                    </div>
+                    <div className="quick-stat">
+                      <span className="quick-stat-label">
+                        <i className="bi bi-arrow-repeat" style={{ color: 'var(--info-blue)' }} />
+                        Repeat Clients
+                      </span>
+                      <span className="quick-stat-value">68%</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  );
 };
 
 export default PaymentPage;
