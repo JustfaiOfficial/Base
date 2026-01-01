@@ -1,32 +1,43 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signup from "./componets/signup.jsx";
-import Homedashboard from "./componets/Homepage.jsx";
-import LoginForm from "./componets/login.jsx";
-import Workspace from "./componets/Workspace.jsx";
-import JobListing from "./componets/Joblisting.jsx";
-import JobDetailsPage from "./componets/Jobdetails.jsx";
-import ProposalPage from "./componets/SubmitPropsoal.jsx";
+
+// Auth
+import Signup from "./components/auth/Signup.jsx";
+import Login from "./components/auth/Login.jsx";
+
+// Pages
+import Homepage from "./components/pages/Homepage.jsx";
+import Dashboard from "./components/pages/Dashboard.jsx";
+import Workspace from "./components/pages/Workspace.jsx";
+import Joblisting from "./components/pages/Joblisting.jsx";
+import Jobdetails from "./components/pages/Jobdetails.jsx";
+import SubmitProposal from "./components/pages/SubmitProposal.jsx";
+import Freelancerprofile from "./components/pages/Freelancerprofile.jsx";
+import Notification from "./components/pages/Notification.jsx";
+import Payment from "./components/pages/Payment.jsx";
+import MilestoneTracker from "./components/pages/MilestoneTracker.jsx";
+import Waitlist from "./components/pages/Waitlist.jsx";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          {/* Default route */}
-          <Route path="/" element={<Homedashboard />} />
-          <Route path="/login" element={<LoginForm></LoginForm>}/>
-          <Route path="/workspace" element={<Workspace></Workspace>}/>
-                    <Route path="/Jobs" element={<JobListing></JobListing>}/>
-                                        <Route path="/Job/next" element={<JobDetailsPage></JobDetailsPage>}/>
-          <Route path="/milestone" element={<ProposalPage></ProposalPage>}/>
+          <Route path="/" element={<Homepage />} />
 
+          {/* Main pages */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Freelancerprofile />} />
+          <Route path="/workspace" element={<Workspace />} />
+          <Route path="/Jobs" element={<Joblisting />} />
+          <Route path="/Job/next" element={<Jobdetails />} />
+          <Route path="/milestone" element={<SubmitProposal />} />
+          <Route path="/milestones" element={<MilestoneTracker />} />
+          <Route path="/notifications" element={<Notification />} />
+          <Route path="/payments" element={<Payment />} />
+          <Route path="/waitlist" element={<Waitlist />} />
 
-                    
-
-
-
-          
-          {/* Signup route */}
+          {/* Auth routes */}
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
