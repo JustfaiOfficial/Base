@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Navbar from '../layout/Navbar.jsx';
+import Footer from '../layout/Footer.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -65,120 +67,6 @@ const customStyles = `
     top: 60%;
     right: 5%;
     opacity: 0.2;
-  }
-
-  /* Navigation */
-  .nav-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 1rem 2rem;
-    transition: all 0.3s ease;
-  }
-
-  .nav-container.scrolled {
-    background: rgba(3, 3, 5, 0.9);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .nav-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-  }
-
-  .brand-icon {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    color: white;
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.35);
-  }
-
-  .brand-text {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: white;
-    letter-spacing: -0.02em;
-  }
-
-  .brand-text span {
-    background: linear-gradient(135deg, #a78bfa, #c4b5fd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-  }
-
-  .nav-link {
-    color: #a1a1aa;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-
-  .nav-link:hover {
-    color: white;
-  }
-
-  .nav-buttons {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .btn-login {
-    padding: 0.625rem 1.25rem;
-    color: #a1a1aa;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .btn-login:hover {
-    color: white;
-  }
-
-  .btn-cta {
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
-    transition: all 0.3s ease;
-  }
-
-  .btn-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
   }
 
   /* Hero Section */
@@ -917,18 +805,9 @@ const Waitlist = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   const featuresRef = useRef(null);
   const isInView = useInView(featuresRef, { once: true, margin: "-100px" });
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -971,32 +850,13 @@ const Waitlist = () => {
   return (
     <>
       <style>{customStyles}</style>
+      <Navbar />
       <div className="landing-page">
         {/* Background */}
         <div className="bg-gradient" />
         <motion.div className="floating-orb orb-1" animate={{ y: [0, -30, 0], x: [0, 20, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} />
         <motion.div className="floating-orb orb-2" animate={{ y: [0, 25, 0], x: [0, -15, 0] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} />
         <motion.div className="floating-orb orb-3" animate={{ y: [0, -20, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
-
-        {/* Navigation */}
-        <nav className={`nav-container ${scrolled ? 'scrolled' : ''}`}>
-          <div className="nav-inner">
-            <Link to="/" className="brand-logo">
-              <div className="brand-icon"><i className="bi bi-lightning-charge-fill" /></div>
-              <span className="brand-text">Just<span>Fai</span></span>
-            </Link>
-            <div className="nav-links">
-              <a href="#features" className="nav-link">Features</a>
-              <a href="#how-it-works" className="nav-link">How it Works</a>
-              <a href="#pricing" className="nav-link">Pricing</a>
-              <a href="#testimonials" className="nav-link">Testimonials</a>
-            </div>
-            <div className="nav-buttons">
-              <Link to="/login" className="btn-login">Sign In</Link>
-              <Link to="/signup" className="btn-cta">Get Started</Link>
-            </div>
-          </div>
-        </nav>
 
         {/* Hero Section */}
         <section className="hero-section">
@@ -1145,54 +1005,7 @@ const Waitlist = () => {
         </section>
 
         {/* Footer */}
-        <footer className="footer">
-          <div className="footer-container">
-            <div className="footer-grid">
-              <div className="footer-brand">
-                <Link to="/" className="brand-logo">
-                  <div className="brand-icon"><i className="bi bi-lightning-charge-fill" /></div>
-                  <span className="brand-text">Just<span>Fai</span></span>
-                </Link>
-                <p>The next generation freelancing platform powered by AI. Connect, collaborate, and succeed.</p>
-              </div>
-              <div>
-                <h4 className="footer-title">Product</h4>
-                <ul className="footer-links">
-                  <li><a href="#features">Features</a></li>
-                  <li><a href="#pricing">Pricing</a></li>
-                  <li><a href="#how-it-works">How It Works</a></li>
-                  <li><a href="#waitlist">Join Waitlist</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="footer-title">Company</h4>
-                <ul className="footer-links">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Careers</a></li>
-                  <li><a href="#">Blog</a></li>
-                  <li><a href="#">Press</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="footer-title">Legal</h4>
-                <ul className="footer-links">
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Terms of Service</a></li>
-                  <li><a href="#">Cookie Policy</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="footer-bottom">
-              <p className="footer-copyright">© 2026 JustFai. All rights reserved.</p>
-              <div className="footer-socials">
-                <a href="#"><i className="bi bi-twitter-x" /></a>
-                <a href="#"><i className="bi bi-linkedin" /></a>
-                <a href="#"><i className="bi bi-github" /></a>
-                <a href="#"><i className="bi bi-instagram" /></a>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
